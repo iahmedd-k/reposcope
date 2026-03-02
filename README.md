@@ -1,38 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Features
 
-## Getting Started
+AI Commit Summaries — Every commit gets a formal, clear explanation written by Groq AI (Llama 3). No more deciphering cryptic commit messages.
+Natural Language Search — Ask questions like "where did I change the login page?" or "who fixed the payment bug last week?" and get the exact commit, file, and a direct GitHub link.
+File-Level Answers — The chatbot returns clickable links that take you straight to the exact file at the exact commit on GitHub.
+Private Repo Support — Add your GitHub Personal Access Token to analyze private repositories.
+Recent Repos — Signed-in users get a sidebar history of recently analyzed repos.
+Usage Limits + Billing — Free tier with 3 analyses/day. Pro and Team plans via Stripe.
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-> **AI model configuration**: This project uses Groq's API via `lib/gemini.js`. Set `GROQ_API_KEY` in `.env.local` and you can optionally override the model with `GROQ_MODEL` (default: `mixtral-8x7b`). The previous `mixtral-8x7b-32768` model was decommissioned; update if you see 400 errors.
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🛠️ Tech Stack
+LayerTechnologyFrameworkNext.js 14 (App Router)StylingTailwind CSSAuthenticationClerk (GitHub OAuth)DatabaseSupabase (PostgreSQL)AI / LLMGroq API — Llama 3.1Data SourceGitHub REST APIPaymentsStripe (test mode)DeploymentVercel
+User pastes GitHub URL
+        ↓
+GitHub REST API → fetch all commits + file diffs
+        ↓
+Groq AI (Llama 3.1) → formal summary for each commit
+        ↓
+React Context (useContext) → all commits stored in memory
+        ↓
+User asks chatbot question
+        ↓
+All commits sent as context to Groq AI
+        ↓
+AI returns exact commit SHA + file path + blob URL
+        ↓
+Clickable link to file on GitHub
